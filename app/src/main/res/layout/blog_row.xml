@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="70dp">
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/imageV"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop" />
+    <!--android:src="@drawable/ic_launcher_foreground"-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <!--Title & Description Text-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:orientation="vertical">
+            <!--Title Text-->
+            <FrameLayout
+                android:id="@+id/Frame1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_card">
+
+                <TextView
+                    android:id="@+id/imagetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="Title"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+            <!--Description Text-->
+            <FrameLayout
+                android:id="@+id/Frame2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/transparent_card">
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="Description"
+                    android:textColor="@android:color/white" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!--Button-->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:background="@drawable/transparent_card"
+            android:clickable="true"
+            android:focusable="true">
+
+            <FrameLayout
+                android:id="@+id/btnLike"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="6dp"
+                android:background="@drawable/ic_outline_thumb_up_alt_24" />
+            <!--android:background="@android:drawable/ic_menu_send"-->
+        </FrameLayout>
+    </FrameLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#207CA8</color>
+    <color name="colorPrimaryDark">#185D7E</color>
+    <color name="colorAccent">#2FB4EA</color>
+
+    <color name="black_overlay">#66000000</color>
+    <!--    <color name="mtrl_textinput_default_box_stroke_color">@color/colorPrimary</color>-->
+</resources>

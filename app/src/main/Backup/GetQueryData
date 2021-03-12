@@ -1,0 +1,51 @@
+/** getting other projects
+         create a query to find all nodes with userID
+         limitToFirst only choose the first 2 nodes
+         */
+        Query userProjects = FirebaseDatabase.getInstance().getReference("Images")
+                .orderByChild("userID").equalTo(userID).limitToFirst(2);
+userProjects.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    *//** an array list is created to store the values from the
+         database every time the for loop runs *//*
+                    ArrayList<Object> array = new ArrayList<>();
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String imageURL = snapshot.getValue(Blog.class).getImageURL();
+                        *//** the URLs are stacked / added to the ArrayList *//*
+                        array.add(imageURL);
+                    }
+
+                    ImageView pro1 = findViewById(R.id.pro1);
+                    ImageView pro2 = findViewById(R.id.pro2);
+
+                    if (array.get(0) != null) {
+                        String pro1URL = (String) array.get(0);
+                        Picasso.with(getApplicationContext()).load(pro1URL)
+                                .placeholder(R.drawable.ic_launcher_foreground)
+                                .into(pro1);
+                    }
+                    if (array.size() > 1) {
+                        String pro2URL = (String) array.get(1);
+                        Picasso.with(getApplicationContext()).load(pro2URL)
+                                .placeholder(R.drawable.ic_launcher_foreground)
+                                .into(pro2);
+                    } else {
+                        pro2.setVisibility(View.GONE);
+                    }
+
+
+                    *//** Logs below to test the values added to array
+         *  Log.v("asdf", "First data : " + array.get(0));
+         *  Log.v("asdf", "First data : " + array.get(1));*//*
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });

@@ -1,0 +1,58 @@
+package com.matt.firebasestorage.Adapters;
+
+import android.content.Context;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.matt.firebasestorage.Fragments.FavouritesFragment;
+import com.matt.firebasestorage.Fragments.JobsFragment;
+import com.matt.firebasestorage.Fragments.ProjectsFragment;
+
+/**
+ * loads tab layout fragment when i click on fragtab option,
+ * but when i try to load it second time by clicking on same options,
+ * it is not showing tab content.
+ * <p>
+ * Try using
+ * class ViewPagerAdapter extends FragmentStatePagerAdapter {
+ * <p>
+ * instead of
+ * class ViewPagerAdapter extends FragmentPagerAdapter {
+ **/
+public class TabAdapter extends FragmentStatePagerAdapter {
+
+    int totalTabs;
+    private Context myContext;
+
+    public TabAdapter(Context context, FragmentManager fm, int totalTabs) {
+        super(fm);
+        myContext = context;
+        this.totalTabs = totalTabs;
+    }
+
+    // this is for fragment tabs
+    @Override
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                ProjectsFragment projectsFragment = new ProjectsFragment();
+                return projectsFragment;
+            case 1:
+                FavouritesFragment favouritesFragment = new FavouritesFragment();
+                return favouritesFragment;
+            case 2:
+                JobsFragment jobsFragment = new JobsFragment();
+                return jobsFragment;
+            default:
+                return null;
+        }
+    }
+
+    // this counts total number of tabs
+    @Override
+    public int getCount() {
+        return totalTabs;
+    }
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="5dp"
+    android:animateLayoutChanges="true">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:src="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/receiver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_toEndOf="@+id/profile_image"
+        android:background="@drawable/receiver_layout"
+        android:padding="10dp"
+        android:text="Receiver message"
+        android:textColor="@android:color/secondary_text_light" />
+
+    <TextView
+        android:id="@+id/sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="@+id/receiver"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/sender_layout"
+        android:padding="10dp"
+        android:text="Sender message"
+        android:textColor="@color/common_google_signin_btn_text_dark" />
+
+    <FrameLayout
+        android:id="@+id/status"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_round_check_24" />
+
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sender"
+        android:layout_toStartOf="@+id/status"
+        android:text="HH:mm"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/timestampR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/receiver"
+        android:layout_marginStart="50dp"
+        android:text="HH:mm"
+        android:textSize="12sp" />
+
+</RelativeLayout>

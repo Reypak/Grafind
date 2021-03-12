@@ -1,0 +1,180 @@
+package com.matt.firebasestorage.Fragments;
+
+import android.app.Dialog;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.matt.firebasestorage.Adapters.TabAdapter;
+import com.matt.firebasestorage.R;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class ProfileFragment extends Fragment {
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private CircleImageView circleImageView;
+    private TextView userText, email, likes, rating;
+    private View statPanel, btnEdit;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TabAdapter adapter;
+    private DatabaseReference userData;
+    private String userID;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+
+       /* Bundle args = getArguments();
+        if (args != null) {
+            userID = this.getArguments().getString("userID");
+            Toast.makeText(getContext(), "Yea man " + userID, Toast.LENGTH_SHORT).show();
+        }*/
+
+
+        userText = rootView.findViewById(R.id.username);
+        email = rootView.findViewById(R.id.email);
+        statPanel = rootView.findViewById(R.id.statPanel);
+        circleImageView = rootView.findViewById(R.id.profile_image);
+        btnEdit = rootView.findViewById(R.id.btnEdit);
+
+        tabLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
+
+        getUserInfo();
+        getTabs();
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editProfile();
+            }
+        });
+
+        return rootView;
+    }
+
+    private void getTabs() {
+        tabLayout.addTab(tabLayout.newTab().setText("Work"));
+        tabLayout.addTab(tabLayout.newTab().setText("About"));
+        tabLayout.addTab(tabLayout.newTab().setText("Favourites"));
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        adapter = new TabAdapter(getActivity(), getFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    public void editProfile() {
+
+        final Dialog d = new Dialog(getActivity());
+        d.setContentView(R.layout.edit_profile_dialog);
+
+        final EditText etUsername = d.findViewById(R.id.etUsername);
+        MaterialButton btnSave = d.findViewById(R.id.save);
+        etUsername.setText(userText.getText());
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newUsername = etUsername.getText().toString().trim();
+                if (!newUsername.matches("")) {
+                    userData.child("username").setValue(newUsername).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                            getUserInfo(); // to refresh the data
+                            d.dismiss();
+                        }
+                    });
+                } else {
+                    etUsername.setError("Empty!");
+                }
+
+            }
+        });
+        d.show();
+    }
+
+    private void getUserInfo() {
+        circleImageView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.zoom_in));
+
+        Animation SlideIn = AnimationUtils.loadAnimation(getContext(), R.anim.zoom_in);
+        SlideIn.setStartOffset(100);
+        statPanel.startAnimation(SlideIn);
+
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
+        String userID = user.getUid();
+        String userEmail = user.getEmail();
+        email.setText(userEmail);
+
+        // getting User profile pic and Username from User database reference
+        userData = FirebaseDatabase.getInstance().getReference("Users" + "/" + userID);
+        userData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String username = dataSnapshot.child("username").getValue().toString();
+                    userText.setText(username);
+                    String profileImage = dataSnapshot.child("profileURL").getValue().toString();
+                    Picasso.with(getContext()).load(profileImage)
+                            .placeholder(R.drawable.ic_launcher_foreground)
+                            .into(circleImageView);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+}

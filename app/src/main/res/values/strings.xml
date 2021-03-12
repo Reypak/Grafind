@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Grafind</string>
+
+    <string name="title_home">Home</string>
+    <!--    <string name="title_notifications">Notifications</string>-->
+    <string name="title_favourites">Favourites</string>
+    <string name="title_profile">My Profile</string>
+    <string name="title_messages">Chats</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--    <string name="fcm_message">New Message</string>-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="powered_by">Powered by HaMatt Media</string>
+    <string name="app_email">hamattmedia@gmail.com</string>
+
+</resources>

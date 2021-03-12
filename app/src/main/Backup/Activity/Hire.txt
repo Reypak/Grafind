@@ -1,0 +1,73 @@
+package com.matt.firebasestorage;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class Hire extends AppCompatActivity {
+
+    private EditText short_desc, full_desc, contact, email;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hire);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        short_desc = findViewById(R.id.short_desc);
+        full_desc = findViewById(R.id.full_desc);
+        contact = findViewById(R.id.phone);
+        email = findViewById(R.id.email);
+
+        assert user != null;
+        email.setText(user.getEmail());
+
+        short_desc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    short_desc.setHint("Ex. Business Cards");
+                } else {
+                    short_desc.setHint(null);
+                }
+            }
+        });
+
+        full_desc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    full_desc.setHint("Include all details of your preferences eg. text, slogans, color, sizes, images etc.");
+                } else {
+                    full_desc.setHint(null);
+                }
+            }
+        });
+
+
+        Intent intent = getIntent();
+        String hireUsername = intent.getStringExtra("username");
+        TextView tvUsername = findViewById(R.id.tvUsername);
+        tvUsername.setText(hireUsername);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}

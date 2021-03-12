@@ -1,0 +1,42 @@
+public void getData() {
+        Query firstRequestQuery = mDatabase.orderByKey().limitToFirst(1);
+        firstRequestQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+
+                    DatabaseReference getPosts = userSnapshot.getRef().child("Posts");
+
+                    /* this is the firebase recycler which populates the post items into the list */
+                    FirebaseRecyclerAdapter<Blog, BlogViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Blog, BlogViewHolder>
+                            (Blog.class, R.layout.blog_row, BlogViewHolder.class, getPosts) {
+                        @Override
+                        protected void populateViewHolder(BlogViewHolder blogViewHolder, final Blog blog, final int i) {
+                            blogViewHolder.setTitle(blog.getTitle());
+                            blogViewHolder.setImageURL(getApplicationContext(), blog.getImageURL());
+                            blogViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    String URL = blog.getImageURL();
+                                    String Title = blog.getTitle();
+//                        Toast.makeText(view.getContext(), Title, Toast.LENGTH_SHORT).show();
+//                        String itemID = getRef(i).getKey(); // storing key of data
+
+                                    Intent intent = new Intent(getApplication(), ViewImage.class);
+                                    intent.putExtra("imageURL", URL);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    };
+                    mBlogList.setAdapter(firebaseRecyclerAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".Hire">
+
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnSubmit"
+        style="@style/Widget.AppCompat.Button.Borderless" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+        android:layout_margin="20dp" android:text="Submit" android:textColor="@color/colorPrimary"
+        app:backgroundTint="@android:color/transparent" app:cornerRadius="50dp"
+        app:rippleColor="@color/colorPrimary" app:strokeColor="@color/colorPrimary"
+        app:strokeWidth="1.5dp" />
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_above="@+id/btnSubmit">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingHorizontal="20dp">
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" android:gravity="center"
+                android:text="Hire a Professional Graphics Designer"
+                android:textColor="@color/colorPrimary" android:textSize="30sp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:gravity="center" android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp" android:layout_marginEnd="5dp"
+                    android:text="You are hiring:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView android:id="@+id/tvUsername" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginVertical="10dp"
+                    android:text="Username"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:text="Cost:"
+                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Short Description" android:theme="@style/TextInputLayoutStyle"
+                app:boxCornerRadiusTopEnd="20dp" app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/short_desc" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Describe your project entirely"
+                android:theme="@style/TextInputLayoutStyle" app:boxCornerRadiusBottomStart="20dp"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/full_desc"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:gravity="top" android:maxLines="5" android:minLines="5" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Phone Number" android:theme="@style/TextInputLayoutStyle"
+                app:boxCornerRadiusTopEnd="20dp" app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/phone"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Email Address" android:theme="@style/TextInputLayoutStyle"
+                app:boxCornerRadiusBottomStart="20dp" app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/email"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:enabled="false" android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
